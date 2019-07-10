@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EditConvidadoPage } from '../edit-convidado/edit-convidado.page';
 import { Convidado } from '../../models/convidado';
 import { LoadingController } from '@ionic/angular';
 import {ConvidadosService} from "../../service/convidados.service"

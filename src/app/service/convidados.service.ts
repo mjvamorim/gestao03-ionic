@@ -14,6 +14,7 @@ const apiUrl = "http://localhost:8080/api/convidados";
 export class ConvidadosService {
 
   constructor(private http: HttpClient) { }
+  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -31,6 +32,8 @@ export class ConvidadosService {
   
   private extractData(res: Response) {
     let body = res;
+    console.log(body);
+    console.log(body || { });
     return body || { };
   }
   getConvidados(): Observable<any> {
