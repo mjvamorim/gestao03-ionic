@@ -14,7 +14,7 @@ const apiUrl = "http://localhost:8080/api/convidados";
 export class ConvidadosService {
 
   constructor(private http: HttpClient) { }
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -42,30 +42,33 @@ export class ConvidadosService {
       catchError(this.handleError));
   }
   
-  getConvidadosById(id: string): Observable<any> {
+  getConvidadosById(id: number): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
   
-  postConvidados(data): Observable<any> {
+  postConvidados(convidado:any): Observable<any> {
+    let data = JSON.stringify(convidado);
     const url = `${apiUrl}`;
+    console.log('Postdata: '+data);
     return this.http.post(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
   
-  updateConvidados(id: string, data): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+  updateConvidados(convidado:any): Observable<any> {
+    const url = `${apiUrl}`;
+    let data = JSON.stringify(convidado);
     return this.http.put(url, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
   
-  deleteConvidados(id: string): Observable<{}> {
+  deleteConvidados(id: number): Observable<{}> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete(url, httpOptions)
       .pipe(

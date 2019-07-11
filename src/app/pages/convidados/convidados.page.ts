@@ -13,7 +13,7 @@ export class ConvidadosPage implements OnInit {
   convidado: Convidado;
 
   constructor(private router: Router, public api: ConvidadosService, public loadingController: LoadingController) {
-      this.getConvidados();
+      
   }
 
   async getConvidados() {
@@ -33,7 +33,9 @@ export class ConvidadosPage implements OnInit {
         loading.dismiss();
       });
   }
-  ngOnInit() {
+  ngOnInit() {}
+  ionViewWillEnter() {
+    this.getConvidados();
   }
   addConvidado(){
     this.router.navigate(['/edit-convidado', 0]);
@@ -43,8 +45,20 @@ export class ConvidadosPage implements OnInit {
     this.router.navigate(['/edit-convidado', id]);
 
   }
-  removeConvidado(id: number){
-
+  async removeConvidado(id: number){
+    const loading = await this.loadingController.create({
+      message: 'Apagando'
+    });
+    await loading.present();
+    await this.api.deleteConvidados(id)
+      .subscribe(res => {
+        console.log(res);
+        this.getConvidados();
+        loading.dismiss();
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+      });
   }
 }
 
